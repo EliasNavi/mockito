@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>org.example</groupId>
+    <artifactId>test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+
+    <properties>
+        <maven.compiler.source>19</maven.compiler.source>
+        <maven.compiler.target>19</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.13.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-core</artifactId>
+            <version>5.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.8.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.diffplug.spotless</groupId>
+            <artifactId>spotless-maven-plugin</artifactId>
+            <version>2.36.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.puppycrawl.tools</groupId>
+            <artifactId>checkstyle</artifactId>
+            <version>10.9.3</version>
+        </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-checkstyle-plugin</artifactId>
+                <version>2.17</version>
+                <executions>
+                    <execution>
+                        <id>validate</id>
+                        <phase>validate</phase>
+                        <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
+                            <encoding>UTF-8</encoding>
+                            <consoleOutput>true</consoleOutput>
+                            <failsOnError>true</failsOnError>
+                            <linkXRef>false</linkXRef>
+                        </configuration>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+<!--    <build>-->
+<!--        <plugins>-->
+<!--            <plugin>-->
+<!--                <groupId>com.diffplug.spotless</groupId>-->
+<!--                <artifactId>spotless-maven-plugin</artifactId>-->
+<!--                <version>2.36.0</version>-->
+<!--                <configuration>-->
+<!--                    &lt;!&ndash; optional: limit format enforcement to just the files changed by this feature branch &ndash;&gt;-->
+<!--&lt;!&ndash;                    <ratchetFrom>origin/main</ratchetFrom>&ndash;&gt;-->
+<!--                    <formats>-->
+<!--                        &lt;!&ndash; you can define as many formats as you want, each is independent &ndash;&gt;-->
+<!--                        <format>-->
+<!--                            &lt;!&ndash; define the files to apply to &ndash;&gt;-->
+<!--                            <includes>-->
+<!--                                <include>*.md</include>-->
+<!--                                <include>.gitignore</include>-->
+<!--                            </includes>-->
+<!--                            &lt;!&ndash; define the steps to apply to those files &ndash;&gt;-->
+<!--                            <trimTrailingWhitespace/>-->
+<!--                            <endWithNewline/>-->
+<!--                            <indent>-->
+<!--                                <tabs>true</tabs>-->
+<!--                                <spacesPerTab>4</spacesPerTab>-->
+<!--                            </indent>-->
+<!--                        </format>-->
+<!--                    </formats>-->
+<!--                    &lt;!&ndash; define a language-specific format &ndash;&gt;-->
+<!--                    <java>-->
+<!--                        &lt;!&ndash; no need to specify files, inferred automatically, but you can if you want &ndash;&gt;-->
+
+<!--                        &lt;!&ndash; apply a specific flavor of google-java-format and reflow long strings &ndash;&gt;-->
+<!--                        <googleJavaFormat>-->
+<!--                            <version>1.10.0</version>-->
+<!--                            <style>AOSP</style>-->
+<!--                            <reflowLongStrings>true</reflowLongStrings>-->
+<!--                        </googleJavaFormat>-->
+
+<!--                        <includes>-->
+<!--                            <include>src/main/java/**/*.java</include>-->
+<!--                            <include>src/test/java/**/*.java</include>-->
+<!--                        </includes>-->
+
+<!--                        &lt;!&ndash; Cleanthat will refactor your code, but it may break your style: apply it before your formatter &ndash;&gt;-->
+<!--                        <cleanthat />        &lt;!&ndash; has its own section below &ndash;&gt;-->
+<!--                        <eclipse />          &lt;!&ndash; has its own section below &ndash;&gt;-->
+<!--                        <prettier>-->
+<!--                            <devDependencies>-->
+<!--                                <prettier>2.0.5</prettier>-->
+<!--                                <prettier-plugin-java>0.8.0</prettier-plugin-java>-->
+<!--                            </devDependencies>-->
+<!--                            <config>-->
+<!--                                <tabWidth>4</tabWidth>-->
+<!--                                <parser>java</parser>-->
+<!--                            </config>-->
+<!--                        </prettier>-->
+
+<!--                        <importOrder /> &lt;!&ndash; standard import order &ndash;&gt;-->
+<!--                        <importOrder>  &lt;!&ndash; or a custom ordering &ndash;&gt;-->
+<!--                            <wildcardsLast>false</wildcardsLast> &lt;!&ndash; Optional, default false. Sort wildcard import after specific imports &ndash;&gt;-->
+<!--                            <order>java|javax,org,com,com.diffplug,,\#com.diffplug,\#</order>  &lt;!&ndash; or use <file>${project.basedir}/eclipse.importorder</file> &ndash;&gt;-->
+<!--                            &lt;!&ndash; you can use an empty string for all the imports you didn't specify explicitly, '|' to join group without blank line, and '\#` prefix for static imports. &ndash;&gt;-->
+<!--                        </importOrder>-->
+
+<!--                        <removeUnusedImports>-->
+<!--                            <engine>google-java-format</engine>-->
+<!--                        </removeUnusedImports>&lt;!&ndash; self-explanatory &ndash;&gt;-->
+
+<!--                        <formatAnnotations />-->
+
+<!--                    </java>-->
+<!--                </configuration>-->
+<!--            </plugin>-->
+<!--        </plugins>-->
+<!--    </build>-->
+
+
+</project>
